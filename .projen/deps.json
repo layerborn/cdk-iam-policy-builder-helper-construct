@@ -1,6 +1,14 @@
 {
   "dependencies": [
     {
+      "name": "@aws-sdk/types",
+      "type": "build"
+    },
+    {
+      "name": "@types/axios",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -64,11 +72,6 @@
       "type": "build"
     },
     {
-      "name": "npm-check-updates",
-      "version": "^16",
-      "type": "build"
-    },
-    {
       "name": "projen",
       "type": "build"
     },
@@ -88,6 +91,18 @@
     {
       "name": "typescript",
       "type": "build"
+    },
+    {
+      "name": "@aws-sdk/client-iam",
+      "type": "bundled"
+    },
+    {
+      "name": "axios",
+      "type": "bundled"
+    },
+    {
+      "name": "jsonc-parser",
+      "type": "bundled"
     },
     {
       "name": "aws-cdk-lib",

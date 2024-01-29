@@ -34,6 +34,8 @@
     "organization": false
   },
   "devDependencies": {
+    "@aws-sdk/types": "^3.496.0",
+    "@types/axios": "^0.14.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
@@ -50,7 +52,6 @@
     "jsii-docgen": "^10.3.13",
     "jsii-pacmak": "^1.94.0",
     "jsii-rosetta": "~5.0.0",
-    "npm-check-updates": "^16",
     "projen": "^0.79.6",
     "standard-version": "^9",
     "ts-jest": "^29.1.2",
@@ -61,9 +62,22 @@
     "aws-cdk-lib": "^2.1.0",
     "constructs": "^10.0.5"
   },
+  "dependencies": {
+    "@aws-sdk/client-iam": "^3.501.0",
+    "axios": "^1.6.7",
+    "jsonc-parser": "^3.2.1"
+  },
+  "bundledDependencies": [
+    "@aws-sdk/client-iam",
+    "axios",
+    "jsonc-parser"
+  ],
   "keywords": [
     "cdk"
   ],
+  "engines": {
+    "node": ">= 18.0.0"
+  },
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "version": "0.0.0",
@@ -100,11 +114,13 @@
         }
       ]
     ],
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.dev.json"
-      }
+    "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json"
+        }
+      ]
     }
   },
   "types": "lib/index.d.ts",
