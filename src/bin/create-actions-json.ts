@@ -36,3 +36,4 @@ readInterface.on('close', () => {
   fs.writeFileSync(path.join(__dirname, '..', 'construct', 'Actions.json'), JSON.stringify(output));
 });
 
+readInterface.close();

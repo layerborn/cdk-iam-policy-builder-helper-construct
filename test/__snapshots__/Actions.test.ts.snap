@@ -1,0 +1,458 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Smoke Test Actions Helper Properties Create an IAM Role using Actions and Managed Policies 1`] = `
+Stack {
+  "_logicalIds": LogicalIDs {
+    "renames": {},
+    "reverse": {},
+  },
+  "_missingContext": [],
+  "_stackDependencies": {},
+  "_stackName": "MyStack",
+  "_versionReportingEnabled": undefined,
+  "account": "123456789012",
+  "artifactId": "MyStack",
+  "environment": "aws://123456789012/eu-central-1",
+  "node": Node {
+    "_children": {
+      "ElastiCacheFullAccess": Import {
+        "_allowCrossEnvironment": false,
+        "_physicalName": undefined,
+        "env": {
+          "account": "123456789012",
+          "region": "eu-central-1",
+        },
+        "managedPolicyArn": "arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess",
+        "node": Node {
+          "_children": {},
+          "_context": {},
+          "_dependencies": Set {},
+          "_locked": false,
+          "_metadata": [],
+          "_validations": [],
+          "host": [Circular],
+          "id": "ElastiCacheFullAccess",
+          "scope": [Circular],
+        },
+        "physicalName": "\${Token[TOKEN.207]}",
+        "stack": [Circular],
+        Symbol(@aws-cdk/core.DependableTrait): {
+          "dependencyRoots": [
+            [Circular],
+          ],
+        },
+      },
+      "FSxConsoleFullAccess": Import {
+        "_allowCrossEnvironment": false,
+        "_physicalName": undefined,
+        "env": {
+          "account": "123456789012",
+          "region": "eu-central-1",
+        },
+        "managedPolicyArn": "arn:aws:iam::aws:policy/AmazonFSxConsoleFullAccess",
+        "node": Node {
+          "_children": {},
+          "_context": {},
+          "_dependencies": Set {},
+          "_locked": false,
+          "_metadata": [],
+          "_validations": [],
+          "host": [Circular],
+          "id": "FSxConsoleFullAccess",
+          "scope": [Circular],
+        },
+        "physicalName": "\${Token[TOKEN.208]}",
+        "stack": [Circular],
+        Symbol(@aws-cdk/core.DependableTrait): {
+          "dependencyRoots": [
+            [Circular],
+          ],
+        },
+      },
+      "MyRole": Role {
+        "_allowCrossEnvironment": false,
+        "_didSplit": false,
+        "_physicalName": undefined,
+        "assumeRoleAction": "sts:AssumeRole",
+        "assumeRolePolicy": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "\${Token[ec2.amazonaws.com.210]}",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "attachedPolicies": AttachedPolicies {
+          "policies": [],
+        },
+        "dependables": Map {},
+        "env": {
+          "account": "123456789012",
+          "region": "eu-central-1",
+        },
+        "grantPrincipal": [Circular],
+        "inlinePolicies": {
+          "ec2DescribeInstances": {
+            "Statement": [
+              {
+                "Action": [
+                  "ec2:DescribeInstances",
+                  "ec2:CopyImage",
+                  "ec2:RunInstances",
+                  "ec2:CreateTags",
+                  "ec2:CreateCustomerGateway",
+                ],
+                "Effect": "Allow",
+                "Resource": "*",
+              },
+              {
+                "Action": [
+                  "s3:GetObject",
+                  "s3:PutObject",
+                  "s3:DeleteObject",
+                ],
+                "Effect": "Allow",
+                "Resource": "*",
+              },
+            ],
+            "Version": "2012-10-17",
+          },
+        },
+        "managedPolicies": [
+          Import {
+            "_allowCrossEnvironment": false,
+            "_physicalName": undefined,
+            "env": {
+              "account": "123456789012",
+              "region": "eu-central-1",
+            },
+            "managedPolicyArn": "arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess",
+            "node": Node {
+              "_children": {},
+              "_context": {},
+              "_dependencies": Set {},
+              "_locked": false,
+              "_metadata": [],
+              "_validations": [],
+              "host": [Circular],
+              "id": "ElastiCacheFullAccess",
+              "scope": [Circular],
+            },
+            "physicalName": "\${Token[TOKEN.207]}",
+            "stack": [Circular],
+            Symbol(@aws-cdk/core.DependableTrait): {
+              "dependencyRoots": [
+                [Circular],
+              ],
+            },
+          },
+          Import {
+            "_allowCrossEnvironment": false,
+            "_physicalName": undefined,
+            "env": {
+              "account": "123456789012",
+              "region": "eu-central-1",
+            },
+            "managedPolicyArn": "arn:aws:iam::aws:policy/AmazonFSxConsoleFullAccess",
+            "node": Node {
+              "_children": {},
+              "_context": {},
+              "_dependencies": Set {},
+              "_locked": false,
+              "_metadata": [],
+              "_validations": [],
+              "host": [Circular],
+              "id": "FSxConsoleFullAccess",
+              "scope": [Circular],
+            },
+            "physicalName": "\${Token[TOKEN.208]}",
+            "stack": [Circular],
+            Symbol(@aws-cdk/core.DependableTrait): {
+              "dependencyRoots": [
+                [Circular],
+              ],
+            },
+          },
+        ],
+        "node": Node {
+          "_children": {
+            "Resource": CfnRole {
+              "_cfnProperties": {
+                "assumeRolePolicyDocument": {
+                  "Statement": [
+                    {
+                      "Action": "sts:AssumeRole",
+                      "Effect": "Allow",
+                      "Principal": {
+                        "Service": "\${Token[ec2.amazonaws.com.210]}",
+                      },
+                    },
+                  ],
+                  "Version": "2012-10-17",
+                },
+                "description": undefined,
+                "managedPolicyArns": [
+                  "#{Token[TOKEN.211]}",
+                ],
+                "maxSessionDuration": undefined,
+                "path": undefined,
+                "permissionsBoundary": undefined,
+                "policies": [
+                  {
+                    "policyDocument": {
+                      "Statement": [
+                        {
+                          "Action": [
+                            "ec2:DescribeInstances",
+                            "ec2:CopyImage",
+                            "ec2:RunInstances",
+                            "ec2:CreateTags",
+                            "ec2:CreateCustomerGateway",
+                          ],
+                          "Effect": "Allow",
+                          "Resource": "*",
+                        },
+                        {
+                          "Action": [
+                            "s3:GetObject",
+                            "s3:PutObject",
+                            "s3:DeleteObject",
+                          ],
+                          "Effect": "Allow",
+                          "Resource": "*",
+                        },
+                      ],
+                      "Version": "2012-10-17",
+                    },
+                    "policyName": "ec2DescribeInstances",
+                  },
+                ],
+                "roleName": "\${Token[TOKEN.209]}",
+              },
+              "assumeRolePolicyDocument": {
+                "Statement": [
+                  {
+                    "Action": "sts:AssumeRole",
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": "\${Token[ec2.amazonaws.com.210]}",
+                    },
+                  },
+                ],
+                "Version": "2012-10-17",
+              },
+              "attrArn": "\${Token[TOKEN.213]}",
+              "attrRoleId": "\${Token[TOKEN.214]}",
+              "cfnOptions": {},
+              "cfnResourceType": "AWS::IAM::Role",
+              "dependsOn": Set {},
+              "description": undefined,
+              "logicalId": "\${Token[MyStack.MyRole.Resource.LogicalID.212]}",
+              "managedPolicyArns": [
+                "#{Token[TOKEN.211]}",
+              ],
+              "maxSessionDuration": undefined,
+              "node": Node {
+                "_children": {},
+                "_context": {},
+                "_dependencies": Set {},
+                "_locked": false,
+                "_metadata": [
+                  {
+                    "data": "\${Token[MyStack.MyRole.Resource.LogicalID.212]}",
+                    "trace": undefined,
+                    "type": "aws:cdk:logicalId",
+                  },
+                ],
+                "_validations": [],
+                "host": [Circular],
+                "id": "Resource",
+                "scope": [Circular],
+              },
+              "path": undefined,
+              "permissionsBoundary": undefined,
+              "policies": [
+                {
+                  "policyDocument": {
+                    "Statement": [
+                      {
+                        "Action": [
+                          "ec2:DescribeInstances",
+                          "ec2:CopyImage",
+                          "ec2:RunInstances",
+                          "ec2:CreateTags",
+                          "ec2:CreateCustomerGateway",
+                        ],
+                        "Effect": "Allow",
+                        "Resource": "*",
+                      },
+                      {
+                        "Action": [
+                          "s3:GetObject",
+                          "s3:PutObject",
+                          "s3:DeleteObject",
+                        ],
+                        "Effect": "Allow",
+                        "Resource": "*",
+                      },
+                    ],
+                    "Version": "2012-10-17",
+                  },
+                  "policyName": "ec2DescribeInstances",
+                },
+              ],
+              "rawOverrides": {},
+              "roleName": "\${Token[TOKEN.209]}",
+              "stack": [Circular],
+              "tags": TagManager {
+                "initialTagPriority": 50,
+                "priorities": Map {},
+                "renderedTags": "<unresolved-lazy>",
+                "resourceTypeName": "AWS::IAM::Role",
+                "tagFormatter": StandardFormatter {},
+                "tagPropertyName": "tags",
+                "tags": Map {},
+              },
+              Symbol(@aws-cdk/core.DependableTrait): {
+                "dependencyRoots": [
+                  [Circular],
+                ],
+              },
+            },
+          },
+          "_context": {},
+          "_dependencies": Set {},
+          "_locked": false,
+          "_metadata": [],
+          "_validations": [
+            {
+              "validate": [Function],
+            },
+          ],
+          "host": [Circular],
+          "id": "MyRole",
+          "scope": [Circular],
+        },
+        "permissionsBoundary": undefined,
+        "physicalName": "\${Token[TOKEN.209]}",
+        "policyFragment": PrincipalPolicyFragment {
+          "conditions": {},
+          "principalJson": {
+            "AWS": [
+              "\${Token[TOKEN.215]}",
+            ],
+          },
+        },
+        "principalAccount": "123456789012",
+        "roleArn": "\${Token[TOKEN.215]}",
+        "roleId": "\${Token[TOKEN.214]}",
+        "roleName": "\${Token[TOKEN.217]}",
+        "stack": [Circular],
+        Symbol(@aws-cdk/core.DependableTrait): {
+          "dependencyRoots": [
+            [Circular],
+          ],
+        },
+      },
+    },
+    "_context": {},
+    "_dependencies": Set {},
+    "_locked": false,
+    "_metadata": [],
+    "_validations": [],
+    "host": [Circular],
+    "id": "MyStack",
+    "scope": App {
+      "_assemblyBuilder": CloudAssemblyBuilder {
+        "artifacts": {},
+        "assetOutdir": "/tmp/cdk.outcRk6uJ",
+        "missing": [],
+        "outdir": "/tmp/cdk.outcRk6uJ",
+        "parentBuilder": undefined,
+      },
+      "account": undefined,
+      "node": Node {
+        "_children": {
+          "MyStack": [Circular],
+          "Tree": TreeMetadata {
+            "node": Node {
+              "_children": {},
+              "_context": {},
+              "_dependencies": Set {},
+              "_locked": false,
+              "_metadata": [],
+              "_validations": [],
+              "host": [Circular],
+              "id": "Tree",
+              "scope": [Circular],
+            },
+            Symbol(@aws-cdk/core.DependableTrait): {
+              "dependencyRoots": [
+                [Circular],
+              ],
+            },
+          },
+        },
+        "_context": {},
+        "_dependencies": Set {},
+        "_locked": false,
+        "_metadata": [],
+        "_validations": [],
+        "host": [Circular],
+        "id": "",
+        "scope": undefined,
+      },
+      "parentStage": undefined,
+      "region": undefined,
+      "stageName": "",
+      Symbol(@aws-cdk/core.DependableTrait): {
+        "dependencyRoots": [
+          [Circular],
+        ],
+      },
+    },
+  },
+  "region": "eu-central-1",
+  "synthesizer": DefaultStackSynthesizer {
+    "_cloudFormationExecutionRoleArn": "arn:\${AWS::Partition}:iam::123456789012:role/cdk-hnb659fds-cfn-exec-role-123456789012-eu-central-1",
+    "_deployRoleArn": "arn:\${AWS::Partition}:iam::123456789012:role/cdk-hnb659fds-deploy-role-123456789012-eu-central-1",
+    "_stack": [Circular],
+    "assetManifest": AssetManifestBuilder {
+      "dockerImages": {},
+      "files": {},
+    },
+    "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+    "bucketName": "cdk-hnb659fds-assets-123456789012-eu-central-1",
+    "bucketPrefix": "",
+    "dockerTagPrefix": "",
+    "fileAssetPublishingRoleArn": "arn:\${AWS::Partition}:iam::123456789012:role/cdk-hnb659fds-file-publishing-role-123456789012-eu-central-1",
+    "imageAssetPublishingRoleArn": "arn:\${AWS::Partition}:iam::123456789012:role/cdk-hnb659fds-image-publishing-role-123456789012-eu-central-1",
+    "lookupRoleArn": "arn:\${AWS::Partition}:iam::123456789012:role/cdk-hnb659fds-lookup-role-123456789012-eu-central-1",
+    "props": {},
+    "qualifier": "hnb659fds",
+    "repositoryName": "cdk-hnb659fds-container-assets-123456789012-eu-central-1",
+    "useLookupRoleForStackOperations": true,
+  },
+  "tags": TagManager {
+    "initialTagPriority": 50,
+    "priorities": Map {},
+    "renderedTags": "<unresolved-lazy>",
+    "resourceTypeName": "aws:cdk:stack",
+    "tagFormatter": KeyValueFormatter {},
+    "tagPropertyName": "tags",
+    "tags": Map {},
+  },
+  "templateFile": "MyStack.template.json",
+  "templateOptions": {},
+  "terminationProtection": undefined,
+  Symbol(@aws-cdk/core.DependableTrait): {
+    "dependencyRoots": [
+      [Circular],
+    ],
+  },
+}
+`;
