@@ -1,4 +1,5 @@
 import { App, Stack } from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
 import { Effect, ManagedPolicy, PolicyDocument, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { Actions, ManagedPolicies } from '../src';
 
@@ -16,9 +17,11 @@ describe('Smoke Test Actions Helper Properties', () => {
       region: 'eu-central-1',
     };
     const stack = new Stack(app, 'MyStack', {
+      stackName: 'MyStackActions',
       env: fakeEnv,
     });
     new Role(stack, 'MyRole', {
+      roleName: 'MyRole',
       assumedBy: new ServicePrincipal('ec2.amazonaws.com'),
       managedPolicies: [
         ManagedPolicy.fromManagedPolicyArn(stack, 'ElastiCacheFullAccess', ManagedPolicies.AmazonElastiCacheFullAccess.Arn),
@@ -52,7 +55,9 @@ describe('Smoke Test Actions Helper Properties', () => {
         }),
       },
     });
-    expect(stack).toMatchSnapshot();
+
+    const template = Template.fromStack(stack);
+    expect(template.toJSON()).toMatchSnapshot();
   });
 });
 
