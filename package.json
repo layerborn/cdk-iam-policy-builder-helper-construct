@@ -37,7 +37,7 @@
     "organization": false
   },
   "devDependencies": {
-    "@aws-sdk/types": "^3.496.0",
+    "@aws-sdk/types": "^3.502.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^18",
@@ -66,7 +66,7 @@
     "constructs": "^10.0.5"
   },
   "dependencies": {
-    "@aws-sdk/client-iam": "^3.501.0",
+    "@aws-sdk/client-iam": "^3.503.1",
     "axios": "^1.6.7",
     "jsonc-parser": "^3.2.1"
   },
