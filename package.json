@@ -39,7 +39,7 @@
   "devDependencies": {
     "@aws-sdk/types": "^3.502.0",
     "@types/axios": "^0.14.0",
-    "@types/jest": "^29.5.11",
+    "@types/jest": "^29.5.12",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
@@ -52,10 +52,10 @@
     "jest-junit": "^15",
     "jsii": "~5.0.0",
     "jsii-diff": "^1.94.0",
-    "jsii-docgen": "^10.3.13",
+    "jsii-docgen": "^10.3.14",
     "jsii-pacmak": "^1.94.0",
     "jsii-rosetta": "~5.0.0",
-    "projen": "^0.79.6",
+    "projen": "^0.79.7",
     "standard-version": "^9",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
@@ -66,7 +66,7 @@
     "constructs": "^10.0.5"
   },
   "dependencies": {
-    "@aws-sdk/client-iam": "^3.503.1",
+    "@aws-sdk/client-iam": "^3.504.0",
     "axios": "^1.6.7",
     "jsonc-parser": "^3.2.1"
   },
