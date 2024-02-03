@@ -13,6 +13,7 @@
     "compile": "npx projen compile",
     "default": "npx projen default",
     "docgen": "npx projen docgen",
+    "download-policies": "npx projen download-policies",
     "eject": "npx projen eject",
     "eslint": "npx projen eslint",
     "package": "npx projen package",
@@ -76,7 +77,10 @@
     "jsonc-parser"
   ],
   "keywords": [
-    "cdk"
+    "aws",
+    "cdk",
+    "iam-actions",
+    "iam-policy"
   ],
   "engines": {
     "node": ">= 18.0.0"

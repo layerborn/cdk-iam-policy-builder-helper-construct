@@ -31,7 +31,7 @@ async function fetchData() {
 
     const data = response.data.slice(index + 1);
 
-    let jsonData;
+    let jsonData: { [key: string]: any };
     try {
       jsonData = parse(data);
     } catch (error) {
@@ -52,10 +52,10 @@ async function fetchData() {
     }
 
     // Sorting and removing duplicates
-    const uniqueMethods = [...new Set(methods.sort())];
+    const uniqueMethods = [...methods].sort((a, b) => a.localeCompare(b));
 
     // Writing to file
-    fs.writeFileSync('cdk.out/methods_list.txt', uniqueMethods.join('\n'));
+    fs.writeFileSync('methods_list.txt', uniqueMethods.join('\n'));
   } catch (error) {
     console.error('Error during fetchData:', error);
   }
