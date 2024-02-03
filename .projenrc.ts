@@ -6,7 +6,7 @@ import { GithubWorkflowDefinition, JobDefinition } from './cdk.github.workflow.u
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Jayson Rawlins',
   authorAddress: 'jayson.rawlins@layerborn.io',
-  description: 'A CDK construct that helps build IAM policies using the AWS IAM Policy Builder dump.  Normally it is better to use cdk-iam-floyd, but this construct is useful for when you need to build a policy that is not supported by cdk-iam-floyd.',
+  description: 'A CDK construct that helps build IAM policies using the AWS IAM Policy Builder dump.  Normally it is better to use cdk-iam-floyd, but this construct is useful for when you need to build a policy that is not supported by cdk-iam-floyd.  In other words, this construct is jsii compliant.',
   keywords: [
     'aws',
     'cdk',
