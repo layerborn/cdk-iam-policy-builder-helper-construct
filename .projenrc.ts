@@ -75,6 +75,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
   gitignore: [
     'methods_list.txt',
+    '~*.yml',
   ],
   testdir: 'test',
   rootdir: '.',
