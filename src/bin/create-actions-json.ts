@@ -7,7 +7,7 @@ import * as readline from 'readline';
 let output: { [key: string]: { [key: string]: string } } = {};
 
 // Generate the platform-specific path to your text file
-let filePath = path.join('cdk.out/methods_list.txt');
+let filePath = path.join(__dirname, '..', '..', 'methods_list.txt');
 
 const readInterface = readline.createInterface({
   input: fs.createReadStream(filePath),
@@ -33,7 +33,7 @@ readInterface.on('line', (line) => {
 });
 
 readInterface.on('close', () => {
-  fs.writeFileSync(path.join(__dirname, '..', 'construct', 'Actions.json'), JSON.stringify(output));
+  fs.writeFileSync(path.join(__dirname, '..', 'construct', 'Actions.json'), JSON.stringify(output, null, 4));
 });
 
-readInterface.close();
+// readInterface.close();

@@ -28,6 +28,7 @@
   "include": [
     "src/**/*.ts",
     "test/**/*.ts",
+    "cdk.github.workflow.*.ts",
     ".projenrc.ts",
     "projenrc/**/*.ts"
   ],

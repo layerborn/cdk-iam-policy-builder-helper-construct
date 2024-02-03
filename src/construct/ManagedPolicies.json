@@ -2647,10 +2647,6 @@
     "PolicyName": "AWSLakeFormationCrossAccountManager",
     "Arn": "arn:aws:iam::aws:policy/AWSLakeFormationCrossAccountManager"
   },
-  "AmazonLaunchWizard_Fullaccess": {
-    "PolicyName": "AmazonLaunchWizard_Fullaccess",
-    "Arn": "arn:aws:iam::aws:policy/AmazonLaunchWizard_Fullaccess"
-  },
   "AmazonBraketFullAccess": {
     "PolicyName": "AmazonBraketFullAccess",
     "Arn": "arn:aws:iam::aws:policy/AmazonBraketFullAccess"
@@ -4694,5 +4690,13 @@
   "AmazonInspector2ManagedCisPolicy": {
     "PolicyName": "AmazonInspector2ManagedCisPolicy",
     "Arn": "arn:aws:iam::aws:policy/AmazonInspector2ManagedCisPolicy"
+  },
+  "AmazonLexReplicationPolicy": {
+    "PolicyName": "AmazonLexReplicationPolicy",
+    "Arn": "arn:aws:iam::aws:policy/aws-service-role/AmazonLexReplicationPolicy"
+  },
+  "AmazonSageMakerCanvasBedrockAccess": {
+    "PolicyName": "AmazonSageMakerCanvasBedrockAccess",
+    "Arn": "arn:aws:iam::aws:policy/AmazonSageMakerCanvasBedrockAccess"
   }
 }

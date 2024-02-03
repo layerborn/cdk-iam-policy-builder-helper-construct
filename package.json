@@ -1,6 +1,6 @@
 {
   "name": "@layerborn/cdk-iam-policy-builder-helper",
-  "description": "A CDK construct that helps build IAM policies using the AWS IAM Policy Builder dump.  Normally it is better to use cdk-iam-floyd, but this construct is useful for when you need to build a policy that is not supported by cdk-iam-floyd.",
+  "description": "A CDK construct that helps build IAM policies using the AWS IAM Policy Builder dump.  Normally it is better to use cdk-iam-floyd, but this construct is useful for when you need to build a policy that is not supported by cdk-iam-floyd.  In other words, this construct is jsii compliant.",
   "repository": {
     "type": "git",
     "url": "https://github.com/layerborn/cdk-iam-policy-builder-helper-construct.git"
@@ -13,6 +13,7 @@
     "compile": "npx projen compile",
     "default": "npx projen default",
     "docgen": "npx projen docgen",
+    "download-policies": "npx projen download-policies",
     "eject": "npx projen eject",
     "eslint": "npx projen eslint",
     "package": "npx projen package",
@@ -39,12 +40,12 @@
   "devDependencies": {
     "@aws-sdk/types": "^3.502.0",
     "@types/axios": "^0.14.0",
-    "@types/jest": "^29.5.11",
+    "@types/jest": "^29.5.12",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
-    "aws-cdk-lib": "2.30.0",
-    "constructs": "10.0.5",
+    "aws-cdk-lib": "2.80.0",
+    "constructs": "10.3.0",
     "eslint": "^8",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
@@ -52,23 +53,23 @@
     "jest-junit": "^15",
     "jsii": "~5.0.0",
     "jsii-diff": "^1.94.0",
-    "jsii-docgen": "^10.3.13",
+    "jsii-docgen": "^10.3.14",
     "jsii-pacmak": "^1.94.0",
     "jsii-rosetta": "~5.0.0",
-    "projen": "^0.79.6",
     "standard-version": "^9",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.30.0",
-    "constructs": "^10.0.5"
+    "aws-cdk-lib": "^2.80.0",
+    "constructs": "^10.3.0"
   },
   "dependencies": {
-    "@aws-sdk/client-iam": "^3.503.1",
+    "@aws-sdk/client-iam": "^3.504.0",
     "axios": "^1.6.7",
-    "jsonc-parser": "^3.2.1"
+    "jsonc-parser": "^3.2.1",
+    "projen": "^0.79.7"
   },
   "bundledDependencies": [
     "@aws-sdk/client-iam",
@@ -76,7 +77,10 @@
     "jsonc-parser"
   ],
   "keywords": [
-    "cdk"
+    "aws",
+    "cdk",
+    "iam-actions",
+    "iam-policy"
   ],
   "engines": {
     "node": ">= 18.0.0"
