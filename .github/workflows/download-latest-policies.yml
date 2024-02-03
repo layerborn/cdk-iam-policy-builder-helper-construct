@@ -6,13 +6,18 @@ on:
     - cron: 0 0 * * FRI
 jobs:
   download-latest-policies:
+    name: download-latest-policies
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
+    outputs:
+      patch_created: ${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          ref: main
       - name: Set AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -27,7 +32,7 @@ jobs:
         run: npm install -g yarn
       - name: Install dependencies
         run: yarn install --check-files
-      - name: build
+      - name: download-policies
         run: |-
           ts-node ./src/bin/download-actions-json.ts
           ts-node ./src/bin/download-managed-policies-json.ts
@@ -37,20 +42,27 @@ jobs:
         run: |-
           git add .
           git diff --staged --patch --exit-code > .repo.patch || echo "patch_created=true" >> $GITHUB_OUTPUT
-  create-patch:
+      - name: Upload patch
+        uses: actions/upload-artifact@v2
+        with:
+          name: .repo.patch
+          path: .repo.patch
+    timeout-minutes: 60
+  create-pull-request:
+    name: create-pull-request
+    needs: download-latest-policies
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
     if: ${{ needs.download-latest-policies.outputs.patch_created }}
     steps:
-      - name: Generate token
+      - name: Generate Token
         id: generate_token
-        uses: "uses: tibdex/github-app-token@021a2405c7f990db57f5eae5397423dcc554159c"
+        uses: tibdex/github-app-token@021a2405c7f990db57f5eae5397423dcc554159c
         with:
-          app_id: ${{ secrets.GITHUB_APP_ID }}
-          private_key: ${{ secrets.GITHUB_APP_PRIVATE_KEY }}
-          permissions: '{"pull_requests":"write","contents":"write","workflows":"write"}'
+          app_id: ${{ secrets.PROJEN_APP_ID }}
+          private_key: ${{ secrets.PROJEN_APP_PRIVATE_KEY }}
+          permissions: ${{ needs.download-latest-policies.outputs.patch_created }}
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -58,7 +70,7 @@ jobs:
       - name: Download patch
         uses: actions/download-artifact@v3
         with:
-          name: patch
+          name: .repo.patch
           path: ${{ runner.temp }}
       - name: Apply patch
         run: '[ -s ${{ runner.temp }}/.repo.patch ] && git apply ${{ runner.temp }}/.repo.patch || echo "Empty patch. Skipping."'
@@ -94,3 +106,4 @@ jobs:
           author: github-actions <github-actions@github.com>
           committer: github-actions <github-actions@github.com>
           signoff: true
+    timeout-minutes: 60

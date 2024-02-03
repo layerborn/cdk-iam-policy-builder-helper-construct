@@ -44,8 +44,8 @@
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
-    "aws-cdk-lib": "2.30.0",
-    "constructs": "10.0.5",
+    "aws-cdk-lib": "2.80.0",
+    "constructs": "10.3.0",
     "eslint": "^8",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
@@ -56,20 +56,20 @@
     "jsii-docgen": "^10.3.14",
     "jsii-pacmak": "^1.94.0",
     "jsii-rosetta": "~5.0.0",
-    "projen": "^0.79.7",
     "standard-version": "^9",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.30.0",
-    "constructs": "^10.0.5"
+    "aws-cdk-lib": "^2.80.0",
+    "constructs": "^10.3.0"
   },
   "dependencies": {
     "@aws-sdk/client-iam": "^3.504.0",
     "axios": "^1.6.7",
-    "jsonc-parser": "^3.2.1"
+    "jsonc-parser": "^3.2.1",
+    "projen": "^0.79.7"
   },
   "bundledDependencies": [
     "@aws-sdk/client-iam",

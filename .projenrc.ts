@@ -1,18 +1,7 @@
 import { awscdk, github } from 'projen';
 import { GithubCredentials } from 'projen/lib/github';
-import { JobStep } from 'projen/lib/github/workflows-model';
 import { NpmAccess } from 'projen/lib/javascript';
-import {
-  checkoutTypical,
-  configureAwsCredentials,
-  createPatchJob,
-  createPatchStep,
-  GithubWorkflowDefinition,
-  installDeps,
-  installYarn,
-  JobDefinition,
-  setupNode18,
-} from './cdk.github.workflow.update-policies';
+import { GithubWorkflowDefinition, JobDefinition } from './cdk.github.workflow.update-policies';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Jayson Rawlins',
@@ -24,7 +13,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'iam-policy',
     'iam-actions',
   ],
-  cdkVersion: '2.30.0',
+  cdkVersion: '2.80.0',
+  constructsVersion: '10.3.0',
+  projenDevDependency: false,
   defaultReleaseBranch: 'main',
   minNodeVersion: '18.0.0',
   jsiiVersion: '~5.0.0',
@@ -67,7 +58,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'axios',
     'jsonc-parser',
   ],
-  deps: [],
+  deps: [
+    'projen',
+  ],
   devDeps: [
     '@types/axios',
     '@aws-sdk/types',
@@ -102,41 +95,140 @@ ts-node ./src/bin/create-actions-json.ts`,
   description: 'Download the latest IAM policies from AWS',
 });
 
-const downloadLatestPolicies: JobStep = {
-  name: 'build',
-  run: `ts-node ./src/bin/download-actions-json.ts
-ts-node ./src/bin/download-managed-policies-json.ts
-ts-node ./src/bin/create-actions-json.ts`,
-};
-
-const configureAwsCreds = configureAwsCredentials(
-  'arn:aws:iam::${{ secrets.AWS_PROJEN_BUILD_ACCOUNT_ID }}:role/GitHubActions',
-  '${{ secrets.AWS_PROJEN_BUILD_REGION }}',
-  'GitHubActions');
-
 const downloadLatestPolicy = new JobDefinition({
-  jobName: 'download-latest-policies',
+  name: 'download-latest-policies',
   runsOn: ['ubuntu-latest'],
   permissions: {
     contents: github.workflows.JobPermission.WRITE,
     idToken: github.workflows.JobPermission.WRITE,
   },
+  outputs: {
+    patch_created: {
+      stepId: 'create_patch',
+      outputName: 'patch_created',
+    },
+  },
   steps: [
-    checkoutTypical,
-    configureAwsCreds,
-    setupNode18,
-    installYarn,
-    installDeps,
-    downloadLatestPolicies,
-    createPatchStep,
+    {
+      name: 'Checkout',
+      uses: 'actions/checkout@v3',
+      with: {
+        ref: 'main',
+      },
+    },
+    {
+      name: 'Set AWS Credentials',
+      uses: 'aws-actions/configure-aws-credentials@v3',
+      with: {
+        'role-to-assume': 'arn:aws:iam::${{ secrets.AWS_PROJEN_BUILD_ACCOUNT_ID }}:role/GitHubActions',
+        'role-duration-seconds': 3600,
+        'aws-region': '${{ secrets.AWS_PROJEN_BUILD_REGION }}',
+        'role-skip-session-tagging': true,
+        'role-session-name': 'GitHubActions',
+      },
+    },
+    {
+      name: 'Setup Node.js 18',
+      uses: 'actions/setup-node@v3',
+    },
+    {
+      name: 'Install Yarn',
+      run: 'npm install -g yarn',
+    },
+    {
+      name: 'Install dependencies',
+      run: 'yarn install --check-files',
+    },
+    {
+      name: 'download-policies',
+      run: `ts-node ./src/bin/download-actions-json.ts
+ts-node ./src/bin/download-managed-policies-json.ts
+ts-node ./src/bin/create-actions-json.ts`,
+    },
+    {
+      name: 'Find mutations',
+      id: 'create_patch',
+      run: `git add .
+git diff --staged --patch --exit-code > .repo.patch || echo "patch_created=true" >> $GITHUB_OUTPUT`,
+    },
+    {
+      name: 'Upload patch',
+      uses: 'actions/upload-artifact@v2',
+      with: {
+        name: '.repo.patch',
+        path: '.repo.patch',
+      },
+    },
   ],
 });
 
-new GithubWorkflowDefinition(project, {
+
+const createPullRequest = new JobDefinition({
+  name: 'create-pull-request',
+  runsOn: ['ubuntu-latest'],
+  needs: ['download-latest-policies'],
+  permissions: {
+    contents: github.workflows.JobPermission.READ,
+  },
+  if: '${{ needs.download-latest-policies.outputs.patch_created }}',
+  steps: [
+    {
+      name: 'Generate Token',
+      id: 'generate_token',
+      uses: 'tibdex/github-app-token@021a2405c7f990db57f5eae5397423dcc554159c',
+      with: {
+        app_id: '${{ secrets.PROJEN_APP_ID }}',
+        private_key: '${{ secrets.PROJEN_APP_PRIVATE_KEY }}',
+        permissions: '${{ needs.download-latest-policies.outputs.patch_created }}',
+      },
+    },
+    {
+      name: 'Checkout',
+      uses: 'actions/checkout@v3',
+      with: {
+        ref: 'main',
+      },
+    },
+    {
+      name: 'Download patch',
+      uses: 'actions/download-artifact@v3',
+      with: {
+        name: '.repo.patch',
+        path: '${{ runner.temp }}',
+      },
+    },
+    {
+      name: 'Apply patch',
+      run: '[ -s ${{ runner.temp }}/.repo.patch ] && git apply ${{ runner.temp }}/.repo.patch || echo "Empty patch. Skipping."',
+    },
+    {
+      name: 'Set git identity',
+      run: `git config user.name "github-actions"
+git config user.email "github-actions@github.com"`,
+    },
+    {
+      name: 'Create Pull Request',
+      id: 'create-pr',
+      uses: 'peter-evans/create-pull-request@v4',
+      with: {
+        'token': '${{ steps.generate_token.outputs.token }}',
+        'commit-message': 'chore(deps): upgrade dependencies\n\nUpgrades project dependencies. See details in [workflow run].\n\n[Workflow Run]: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\n------\n\n*Automatically created by projen via the "upgrade-main" workflow*',
+        'branch': 'github-actions/upgrade-main',
+        'title': 'chore(deps): upgrade dependencies',
+        'body': 'Upgrades project dependencies. See details in [workflow run].\n\n[Workflow Run]: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\n------\n\n*Automatically created by projen via the "upgrade-main" workflow*',
+        'author': 'github-actions <github-actions@github.com>',
+        'committer': 'github-actions <github-actions@github.com>',
+        'signoff': true,
+      },
+    },
+  ],
+});
+
+const githubWorkflowDefinition = new GithubWorkflowDefinition(project, {
   workflowName: 'download-latest-policies',
   jobs: [
     downloadLatestPolicy,
-    createPatchJob(downloadLatestPolicy.jobName),
+    createPullRequest,
   ],
   triggers: {
     schedule: [{
@@ -145,5 +237,7 @@ new GithubWorkflowDefinition(project, {
   },
 });
 
+if (githubWorkflowDefinition) {
+}
 project.postCompileTask.exec('rm tsconfig.json');
 project.synth();
