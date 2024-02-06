@@ -70,12 +70,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'methods_list.txt',
     '~*.yml',
   ],
-  testdir: 'test',
-  rootdir: '.',
-  srcdir: 'src',
   tsconfigDev: {
     compilerOptions: {
       lib: ['es2019'],
+      resolveJsonModule: true,
     },
     include: [
       'cdk.github.workflow.*.ts',
@@ -223,8 +221,7 @@ git config user.email "github-actions@github.com"`,
     },
   ],
 });
-
-const githubWorkflowDefinition = new GithubWorkflowDefinition(project, {
+new GithubWorkflowDefinition(project, {
   workflowName: 'download-latest-policies',
   jobs: [
     downloadLatestPolicy,
@@ -236,8 +233,6 @@ const githubWorkflowDefinition = new GithubWorkflowDefinition(project, {
     }],
   },
 });
-
-if (githubWorkflowDefinition) {
-}
 project.postCompileTask.exec('rm tsconfig.json');
+project.eslint!.allowDevDeps('cdk.github.workflows.ts');
 project.synth();

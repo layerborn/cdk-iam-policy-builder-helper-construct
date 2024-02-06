@@ -1,7 +1,9 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { Effect, ManagedPolicy, PolicyDocument, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
-import { Actions, ManagedPolicies } from '../src';
+import { Actions } from '../src/Actions';
+import { ManagedPolicies } from '../src/ManagedPolicies';
+
 
 describe('Smoke Test Actions Helper Properties', () => {
   test('Smoke Test Some Basic Action Policies', () => {
