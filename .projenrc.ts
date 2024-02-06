@@ -141,7 +141,9 @@ const downloadLatestPolicy = new JobDefinition({
       name: 'download-policies',
       run: `ts-node ./src/bin/download-actions-json.ts
 ts-node ./src/bin/download-managed-policies-json.ts
-ts-node ./src/bin/create-actions-json.ts`,
+ts-node ./src/bin/create-actions-json.ts
+npx eslint --fix ./src/constructs/Actions.ts
+npx eslint --fix ./src/constructs/ManagedPolicies.ts`,
     },
     {
       name: 'Find mutations',
