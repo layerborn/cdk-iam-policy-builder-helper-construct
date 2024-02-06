@@ -39,7 +39,6 @@ jobs:
           ts-node ./src/bin/create-actions-json.ts
           npx eslint --fix ./src/constructs/Actions.ts
           npx eslint --fix ./src/constructs/ManagedPolicies.ts
-          rm ./src/constructs/Actions.json
       - name: Find mutations
         id: create_patch
         run: |-

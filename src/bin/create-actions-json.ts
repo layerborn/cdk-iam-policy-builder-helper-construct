@@ -37,20 +37,6 @@ readInterface.on('close', () => {
 });
 
 
-const readJsonFile = (filename: string) => {
-  try {
-    // Read file
-    const data = fs.readFileSync(filename, 'utf8');
-    // Parse JSON data
-    const jsonData = JSON.parse(data);
-    return jsonData;
-  } catch (error) {
-    console.log(`Error reading file: ${filename}`);
-    console.error(error);
-    return null;
-  }
-};
-
 const writeToFileAsTsObject = (data: any, filename: string) => {
   try {
     // Convert object to string
