@@ -3,6 +3,7 @@ import { Template } from 'aws-cdk-lib/assertions';
 import { Effect, ManagedPolicy, PolicyDocument, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { Actions, ManagedPolicies } from '../src';
 
+
 describe('Smoke Test Actions Helper Properties', () => {
   test('Smoke Test Some Basic Action Policies', () => {
     console.log(Actions.ec2.AllocateHosts);

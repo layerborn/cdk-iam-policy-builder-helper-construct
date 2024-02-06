@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as path from 'path';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { IAMClient, paginateListPolicies, PolicyScopeType } from '@aws-sdk/client-iam';
 
@@ -8,6 +9,22 @@ interface CustomPolicy {
   PolicyName: string;
   Arn: string;
 }
+
+const writeToFileAsTsObject = (data: any, filename: string) => {
+  try {
+    // Convert object to string
+    const dataAsString = JSON.stringify(data, null, 2);
+
+    // Format data as TypeScript export
+    const tsData = `export const ManagedPolicies = ${dataAsString};\n`;
+
+    // Write data to file
+    fs.writeFileSync(filename, tsData, 'utf8');
+  } catch (error) {
+    console.log(`Error writing to file: ${filename}`);
+    console.error(error);
+  }
+};
 
 async function run() {
   const client = new IAMClient({ region: region });
@@ -30,7 +47,7 @@ async function run() {
     }
   }
 
-  fs.writeFileSync('src/construct/ManagedPolicies.json', JSON.stringify(policies, null, 2));
+  writeToFileAsTsObject(policies, path.join(__dirname, '..', 'constructs', 'ManagedPolicies.ts'));
 }
 
 run().catch(console.error);

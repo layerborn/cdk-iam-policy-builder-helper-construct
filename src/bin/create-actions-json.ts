@@ -33,7 +33,24 @@ readInterface.on('line', (line) => {
 });
 
 readInterface.on('close', () => {
-  fs.writeFileSync(path.join(__dirname, '..', 'construct', 'Actions.json'), JSON.stringify(output, null, 4));
+  writeToFileAsTsObject(output, path.join(__dirname, '..', 'constructs', 'Actions.ts'));
 });
 
-// readInterface.close();
+
+const writeToFileAsTsObject = (data: any, filename: string) => {
+  try {
+    // Convert object to string
+    const dataAsString = JSON.stringify(data, null, 2);
+
+    // Format data as TypeScript export
+    const tsData = `export const Actions = ${dataAsString};\n`;
+
+    // Write data to file
+    fs.writeFileSync(filename, tsData, 'utf8');
+  } catch (error) {
+    console.log(`Error writing to file: ${filename}`);
+    console.error(error);
+  }
+};
+
+
