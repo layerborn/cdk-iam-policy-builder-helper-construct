@@ -299,13 +299,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-sdk/types,@types/axios,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest,jest-junit,jsii-diff,jsii-docgen,jsii-pacmak,standard-version,ts-jest,ts-node,typescript,@aws-sdk/client-iam,axios,jsonc-parser,aws-cdk-lib,constructs,projen"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-sdk/types,@types/axios,@types/jest,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-docgen,jsii-pacmak,ts-jest,ts-node,typescript,@aws-sdk/client-iam,axios,jsonc-parser,projen"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-sdk/types @types/axios @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak standard-version ts-jest ts-node typescript @aws-sdk/client-iam axios jsonc-parser aws-cdk-lib constructs projen"
+          "exec": "yarn upgrade @aws-sdk/types @types/axios @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii standard-version ts-jest ts-node typescript @aws-sdk/client-iam axios jsonc-parser aws-cdk-lib constructs projen"
         },
         {
           "exec": "npx projen"
