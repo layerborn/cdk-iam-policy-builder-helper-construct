@@ -24,8 +24,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
   repositoryUrl: 'https://github.com/layerborn/cdk-iam-policy-builder-helper-construct.git',
   githubOptions: {
-    mergify: true,
-    pullRequestLint: true,
+    mergify: false,
+    pullRequestLint: false,
     projenCredentials: GithubCredentials.fromApp({
       permissions: {
         pullRequests: github.workflows.AppPermission.WRITE,
@@ -34,18 +34,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
       },
     }),
   },
-  depsUpgrade: true,
-  depsUpgradeOptions: {
-    workflowOptions: {
-      projenCredentials: GithubCredentials.fromApp({
-        permissions: {
-          pullRequests: github.workflows.AppPermission.WRITE,
-          contents: github.workflows.AppPermission.WRITE,
-          workflows: github.workflows.AppPermission.WRITE,
-        },
-      }),
-    },
-  },
+  depsUpgrade: false,
   publishToPypi: {
     distName: 'layerborn.cdk-iam-policy-builder-helper',
     module: 'layerborn.cdk_iam_policy_builder_helper',
@@ -84,7 +73,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 });
 
 project.github!.tryFindWorkflow('build')!.file!.addOverride('jobs.build.permissions.id-token', 'write');
-project.github!.tryFindWorkflow('upgrade-main')!.file!.addOverride('jobs.upgrade.permissions.id-token', 'write');
 
 project.addTask('download-policies', {
   exec: `ts-node ./src/bin/download-actions-json.ts
